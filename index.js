@@ -4,7 +4,12 @@ if (process.env.NODE_ENV !== 'production') {
 const fetch = require('node-fetch')
 const nodemailer = require("nodemailer");
 
+const express = require('express');
+const app = express();
 
+app.get('/', (req, res) => {
+  res.send({ message: 'Hello WWW!' });
+});
 
 const sendMail = async (otsikko, viesti) => {
   
@@ -87,4 +92,7 @@ const checker = () => {
             else counter++
         })
 }
-setInterval(() =>  {checker()},2400000)
+app.listen(3333, () => {
+  console.log('Application listening on port 3333!');
+  setInterval(() =>  {checker()},2400000)
+});
