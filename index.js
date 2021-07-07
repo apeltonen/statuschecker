@@ -60,22 +60,22 @@ const checker = () => {
             let ago= Math.round((timestamp-lnts)/1000/60)
             let lago= Math.round((timestamp-lpts)/1000/60)
             console.log(`\n\n---------------------------------------------------------------------------------\n\nChecker-ajo käynnistyi ${d}\n\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n\nEdellisen ajon aikana/Tämän ajon aikana saatu uutisten määrä tietokannassa: ${oldValues['ncount']}/${nCount}\n\nEdellisen ajon aikana/Tämän ajon aikana saatu lähetettyjen herätteiden määrä tietokannassa: ${oldValues['pncount']}/${pnCount}\n\nViimeksi haettu tai päivitetty uutisia:${dn} eli ${ago}min sitten.\n\nViimeksi lähetetty herätteitä:${dp} eli ${lago}min sitten.\n`)
-            if (counter == 36) sendMail('Aleksi testailee',`\n\n---------------------------------------------------------------------------------\n\nChecker-ajo käynnistyi ${d}\n\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n\nEdellisen ajon aikana/Tämän ajon aikana saatu uutisten määrä tietokannassa: ${oldValues['ncount']}/${nCount}\n\nEdellisen ajon aikana/Tämän ajon aikana saatu lähetettyjen herätteiden määrä tietokannassa: ${oldValues['pncount']}/${pnCount}\n\nViimeksi haettu tai päivitetty uutisia:${dn} eli ${ago}min sitten.\n\nViimeksi lähetetty herätteitä:${dp} eli ${lago}min sitten.\n`).catch(console.error)
+            if (counter == 36) sendMail('Vuorokausiraportti',`\n\n---------------------------------------------------------------------------------\n\nChecker-ajo käynnistyi ${d}\n\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n\nEdellisen ajon aikana/Tämän ajon aikana saatu uutisten määrä tietokannassa: ${oldValues['ncount']}/${nCount}\n\nEdellisen ajon aikana/Tämän ajon aikana saatu lähetettyjen herätteiden määrä tietokannassa: ${oldValues['pncount']}/${pnCount}\n\nViimeksi haettu tai päivitetty uutisia:${dn} eli ${ago}min sitten.\n\nViimeksi lähetetty herätteitä:${dp} eli ${lago}min sitten.\n`).catch(console.error)
             console.log(`\nCOUNTER: ${counter}\n`)
             if ((timestamp-lnts) >= delay){
-              //sendMail('VIKATILANNE',`Herätteissä on häiriö. Viimeisen kerran herätteitä on haettu ${ago} min sitten. Virhekoodi A.`).catch(console.error)
+              sendMail('VIKATILANNE',`Herätteissä on häiriö. Viimeisen kerran herätteitä on haettu ${ago} min sitten. Virhekoodi A.`).catch(console.error)
               console.log(`A: Herätteissä on häiriö. Viimeisen kerran herätteitä on haettu ${ago}min sitten`)
             }
             else if ((timestamp-lpts) >= delay){  
-               //sendMail('VIKATILANNE',`Herätteissä on häiriö. Viimeisen kerran push-herätteitä on lähtenyt ${lago} min sitten. Virhekoodi B.`).catch(console.error)
+               sendMail('VIKATILANNE',`Herätteissä on häiriö. Viimeisen kerran push-herätteitä on lähtenyt ${lago} min sitten. Virhekoodi B.`).catch(console.error)
                console.log(`B: Herätteissä on häiriö. Viimeisen kerran push-herätteitä on lähtenyt ${lago}min sitten`)
             }
             else if (nCount <= oldValues['ncount'] && oldValues['ncount'] !== 0){
-              //sendMail('VIKATILANNE',`Herätteissä on häiriö tai uutisia on poistettu tietokannasta, sillä niitä on saman verran tai vähemmän kuin 40 min sitten. Virhekoodi C.`).catch(console.error)
+              sendMail('VIKATILANNE',`Herätteissä on häiriö tai uutisia on poistettu tietokannasta, sillä niitä on saman verran tai vähemmän kuin 40 min sitten. Virhekoodi C.`).catch(console.error)
               console.log(`C: Herätteissä on häiriö tai uutisia on poistettu tietokannasta, sillä niitä on saman verran tai vähemmän kuin 40min sitten.`)
             }
             else if (pnCount == oldValues['pncount'] && oldValues['ncount'] !== 0){
-               //sendMail('VIKATILANNE',`Herätteissä on häiriö, sillä push herätteitä ei ole lähtenyt 40 minuuttiin, vaikka uutisia on haettu. Virhekoodi D.`).catch(console.error)
+               sendMail('VIKATILANNE',`Herätteissä on häiriö, sillä push herätteitä ei ole lähtenyt 40 minuuttiin, vaikka uutisia on haettu. Virhekoodi D.`).catch(console.error)
                console.log(`D: Herätteissä on häiriö, sillä push herätteitä ei ole lähtenyt 40minuuttiin, vaikka uutisia on haettu.`)
             }
             //console.log(`\n minuutteja: ${ago}`)
