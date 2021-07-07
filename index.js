@@ -92,7 +92,7 @@ const checker = () => {
             else counter++
         })
 }
-app.listen(3333, () => {
-  console.log('Application listening on port 3333!');
+app.listen(process.env.PORT || 5000, () => {
+  console.log(`Application listening on port ${process.env.PORT}!`)
   setInterval(() =>  {checker()},2400000)
 });
